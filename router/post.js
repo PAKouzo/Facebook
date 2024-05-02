@@ -6,4 +6,4 @@ const postRouter = Router();
 
 postRouter.get('/:postID/comments', PostMDW.checkPostID, CommentCTL.getAll) //lấy tất cả comment trong post theo postID
 
-export default postRouter;
+export default postRouter;1619
