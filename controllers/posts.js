@@ -1,5 +1,5 @@
 import PostsModel from '../model/posts.js';
-
+import mongoose from 'mongoose';
 const PostCTL = {
     create: async (req, res) => {
         const {userID} = req.params;
@@ -19,11 +19,11 @@ const PostCTL = {
         const {userID} = req.params;
         const posts = await PostsModel.find({userID}).populate('userID')
         res.status(200).send({
-            message: "Geting posts successfully",
+            message: "Getting posts successfully",
             data: posts
         })
     },
-    put: async (req, res) => {
+    update: async (req, res) => {
         const {userID, postID} = req.params;
         const {title, content} = req.body;
         const posts = await PostsModel.findByIdAndUpdate(postID, {
@@ -34,6 +34,15 @@ const PostCTL = {
             message: "Updated post successfully!",
             data: posts
         })
-    }
+    },
+    findPost: async (req, res) => {
+        const { text } = req.query;
+        const posts = await PostsModel.find({ $text: { $search: text } });
+        res.status(200).send({
+            message: "Finding successfully",
+            data: posts
+        });
+    
+}
 }
 export default PostCTL;

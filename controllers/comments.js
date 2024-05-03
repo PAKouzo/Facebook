@@ -16,7 +16,7 @@ const CommentCTL = {
     },
     getAll: async (req, res) => {
         const {postID} = req.params;
-        const comments = await CommentsModel.find({postID})
+        const comments = await CommentsModel.find({postID}).populate('userID')
         res.status(200).send({
             message: "Get all comments successfully!",
             data: comments

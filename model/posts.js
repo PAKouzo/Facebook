@@ -7,6 +7,6 @@ const postSchema = new mongoose.Schema({
     title: String,
     content: String
 });
+postSchema.index({ title: 'text', content: 'text' });
 const PostsModel = mongoose.model('posts', postSchema);
 export default PostsModel;
-//auth -> creater, user

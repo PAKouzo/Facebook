@@ -26,9 +26,13 @@ const UserMDW = {
         const {username, password} = req.body;
         try{
             const existedUsername = await UsersModel.findOne({username});
-            const isPasswordValid = await bcrypt.compare(password, existedUsername.password)
-            if(!existedUsername) throw new Error('Username is wrong or does not exist');
-            if(!isPasswordValid) throw new Error('Password is wrong');
+            if(!existedUsername) {
+                throw new Error('Username is wrong or does not exist');
+            }
+            else{
+                const isPasswordValid = await bcrypt.compare(password, existedUsername.password)
+                if(!isPasswordValid) throw new Error('Password is wrong');
+            }
             next();
         }
         catch(Error){
